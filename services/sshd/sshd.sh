@@ -15,16 +15,17 @@ sed -i 's/#\{0,1\}Port.*$/Port 2222/' /etc/ssh/sshd_config
 sed -i 's/HostKey \/etc\/ssh\/ssh_host_\(.*\)$/HostKey \/etc\/ssh\/keys\/ssh_host_\1/' /etc/ssh/sshd_config
 chmod 775 /var/run
 
-useradd --system -s /bin/bash -u 1234321 -g 0 git # uid to replace later
+useradd --system -s /bin/bash -u 99 -g 0 git # uid to replace later
+mkdir -p /home/git/.ssh
+chmod -R 770 /home/git/
+chown -R git:root /home/git
+
 chmod 775 /etc/ssh /home # keep writable for openshift user group (root)
 chmod 660 /etc/ssh/sshd_config
 chmod 664 /etc/passwd /etc/group # to help uid fix
-ln -s /home/git /repos # nicer repo url
 
 mkdir /etc/service/30-sshd
-#touch /etc/service/30-sshd/disabled
 cp $SSHD_BUILD_PATH/sshd.runit /etc/service/30-sshd/run
-#chmod -R 777 /etc/service/30-sshd/disabled
 
 cp $SSHD_BUILD_PATH/00_update_git_user.sh /etc/my_init.d/
 cp $SSHD_BUILD_PATH/10_regen_ssh_host_keys.sh /etc/my_init.d/
