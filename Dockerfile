@@ -10,6 +10,10 @@ RUN /bd_build/prepare.sh && \
 
 EXPOSE 2222
 VOLUME ["/etc/ssh/keys"]
+
+ENV HOME /home/git
+ENV USER git
+
 USER git
 
 ENTRYPOINT ["/sbin/my_init", "--"]
