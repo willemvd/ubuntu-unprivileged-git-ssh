@@ -1,4 +1,4 @@
-FROM willemvd/ubuntu-baseimage-unprivileged:latest
+FROM willemvd/ubuntu-baseimage-unprivileged:1.0.0
 MAINTAINER willemvd <willemvd@github>
 
 COPY . /bd_build
